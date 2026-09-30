@@ -26,14 +26,89 @@
   --shadow: 0 34px 110px rgba(0, 0, 10, 0.86);
   --radius: 8px;
   --max: 1180px;
-  --display-font: "Sprintura Demo", "Arexa Demo", "Death Stinger", "Lucida Blackletter", "Blackadder ITC", "Old English Text MT", "Cloister Black", "Engravers MT", "Bahnschrift Condensed", Impact, serif;
-  --utility-font: "Bahnschrift Condensed", "Arial Narrow", Impact, Haettenschweiler, "Franklin Gothic Heavy", sans-serif;
-  --body-font: "Bahnschrift", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --display-font: "Sprintura Demo", "Barlow", sans-serif;
+  --utility-font: "Barlow Condensed", sans-serif;
+  --body-font: "Barlow", sans-serif;
+  --matrix-font: "Courier Prime", monospace;
+}
+
+@font-face {
+  font-family: "Courier Prime";
+  src: url("assets/fonts/courier-prime-regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Courier Prime";
+  src: url("assets/fonts/courier-prime-bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Sprintura Demo";
   src: url("assets/fonts/sprintura-demo.otf") format("opentype");
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Barlow";
+  src: url("assets/fonts/barlow-regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Barlow";
+  src: url("assets/fonts/barlow-semibold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Barlow";
+  src: url("assets/fonts/barlow-bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Barlow";
+  src: url("assets/fonts/barlow-extrabold.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Barlow Condensed";
+  src: url("assets/fonts/barlow-condensed-bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Barlow Condensed";
+  src: url("assets/fonts/barlow-condensed-extrabold.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Barlow Condensed";
+  src: url("assets/fonts/barlow-condensed-black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
   font-display: swap;
 }
 
@@ -43,6 +118,8 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -658,7 +735,7 @@ h1 {
   position: relative;
   z-index: 3;
   grid-template-columns: minmax(0, 1fr) minmax(300px, 0.64fr);
-  font-family: "Courier New", "Courier 10 Pitch BT", "Courier Code", Courier, monospace;
+  font-family: var(--matrix-font);
   padding: clamp(26px, 4vw, 46px);
   background:
     linear-gradient(90deg, rgba(0, 0, 8, 0.86), rgba(5, 4, 22, 0.68) 54%, rgba(0, 0, 8, 0.82));
@@ -738,7 +815,7 @@ h1 {
   z-index: var(--column-z);
   width: 1.15em;
   color: rgba(98, 216, 255, var(--column-alpha));
-  font-family: "Courier New", "Courier 10 Pitch BT", "Courier Code", Courier, monospace;
+  font-family: var(--matrix-font);
   font-size: var(--column-font-size);
   font-weight: 700;
   line-height: 0.98;
@@ -810,7 +887,7 @@ h1 {
 }
 
 .data-rain-section .matrix-rain-text {
-  font-family: "Courier New", "Courier 10 Pitch BT", "Courier Code", Courier, monospace;
+  font-family: var(--matrix-font);
   letter-spacing: 0;
   filter: blur(8px);
   opacity: 0;
@@ -1594,6 +1671,7 @@ h1 {
     backdrop-filter: blur(10px) saturate(1.15);
     -webkit-backdrop-filter: blur(10px) saturate(1.15);
     opacity: 0;
+    visibility: hidden;
     pointer-events: none;
     transform: translateY(-10px);
     transition: opacity 180ms ease, transform 180ms ease;
@@ -1601,6 +1679,7 @@ h1 {
 
   .nav-links.is-open {
     opacity: 1;
+    visibility: visible;
     pointer-events: auto;
     transform: translateY(0);
   }
@@ -1748,7 +1827,7 @@ h1 {
     display: grid;
     justify-items: center;
     row-gap: 0.12em;
-    font-size: clamp(1.12rem, 7.25vw, 1.72rem);
+    font-size: 1.5rem;
     line-height: 0.94;
     white-space: normal;
     overflow-wrap: anywhere;
@@ -1759,12 +1838,12 @@ h1 {
   }
 
   .section-title {
-    font-size: clamp(1.8rem, 10vw, 3rem);
+    font-size: 2.25rem;
   }
 
   .data-rain-message {
     max-width: 100%;
-    font-size: clamp(1.95rem, 8.2vw, 2.55rem);
+    font-size: 2rem;
     line-height: 1.04;
   }
 
