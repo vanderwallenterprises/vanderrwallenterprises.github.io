@@ -5,6 +5,7 @@ const revealItems = document.querySelectorAll(".reveal");
 const counters = document.querySelectorAll("[data-count]");
 const hero = document.querySelector(".hero");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const compactMotion = window.matchMedia("(max-width: 900px), (pointer: coarse)");
 const motionPanels = document.querySelectorAll(".section, .terminal, .feature, .metric, .contact-panel");
 const scrollSections = document.querySelectorAll(".section");
 const dataRainSections = document.querySelectorAll("[data-rain-section]");
@@ -148,7 +149,7 @@ let requestedPanelFrame = false;
 const syncSectionScroll = () => {
   requestedPanelFrame = false;
 
-  if (reduceMotion.matches) {
+  if (reduceMotion.matches || compactMotion.matches) {
     scrollSections.forEach((section) => {
       section.style.setProperty("--scroll-progress", "1");
       section.style.setProperty("--section-focus", "1");
@@ -174,7 +175,7 @@ const requestPanelScroll = () => {
   }
 };
 
-if (motionPanels.length > 0) {
+if (motionPanels.length > 0 && !compactMotion.matches) {
   window.addEventListener("pointermove", syncPanelPointer, { passive: true });
 }
 
@@ -557,17 +558,23 @@ const initializeMatrixRevealText = (section) => {
   const rainLayer = section.querySelector(".data-rain-tunnel");
 
   if (rainLayer && !rainLayer.hasChildNodes()) {
-    const layers = [
-      { className: "depth-far", count: 30, alpha: 0.14, speed: 24, depth: -260, blur: 1.3, fontSize: 0.62, scale: 0.78 },
-      { className: "depth-mid", count: 30, alpha: 0.23, speed: 17, depth: -80, blur: 0.55, fontSize: 0.78, scale: 0.95 },
-      { className: "depth-near", count: 20, alpha: 0.32, speed: 12, depth: 150, blur: 0.05, fontSize: 0.96, scale: 1.08 },
-    ];
+    if (compactMotion.matches) {
+      section.classList.add("matrix-lite");
+    }
+
+    const layers = compactMotion.matches
+      ? []
+      : [
+        { className: "depth-far", count: 8, alpha: 0.14, speed: 27, depth: -120, blur: 0, fontSize: 0.66, scale: 0.86 },
+        { className: "depth-mid", count: 8, alpha: 0.23, speed: 20, depth: -20, blur: 0, fontSize: 0.82, scale: 1 },
+        { className: "depth-near", count: 4, alpha: 0.28, speed: 15, depth: 50, blur: 0, fontSize: 0.94, scale: 1.04 },
+      ];
     const fragment = document.createDocumentFragment();
 
     layers.forEach((layer, layerIndex) => {
       for (let columnIndex = 0; columnIndex < layer.count; columnIndex += 1) {
         const column = document.createElement("span");
-        const glyphCount = 48 + ((columnIndex + layerIndex) % 11) * 5;
+        const glyphCount = 22 + ((columnIndex + layerIndex) % 5) * 4;
         let stream = "";
 
         for (let glyphIndex = 0; glyphIndex < glyphCount; glyphIndex += 1) {
