@@ -1640,6 +1640,7 @@ h1 {
   }
 
   .data-rain-section .split {
+    grid-template-columns: 1fr;
     gap: 20px;
     padding: 24px;
     background:
@@ -1731,18 +1732,30 @@ h1 {
   }
 
   .hero-media {
-    width: 100%;
+    width: 112%;
     height: 100%;
+    left: 50%;
+    transform: translateX(-50%) scale(calc(1.02 + (var(--tv-close) * 0.025)));
+  }
+
+  .hero-media img {
+    object-position: 50% 42%;
   }
 
   h1 {
-    max-width: calc(100vw - 48px);
-    font-size: clamp(0.98rem, 4.7vw, 1.36rem);
-    column-gap: 0.14em;
+    width: min(100%, 360px);
+    max-width: calc(100vw - 24px);
+    display: grid;
+    justify-items: center;
+    row-gap: 0.12em;
+    font-size: clamp(1.12rem, 7.25vw, 1.72rem);
+    line-height: 0.94;
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 
   .hero-content {
-    transform: translateY(clamp(84px, 17vh, 128px));
+    transform: translateY(clamp(66px, 14vh, 112px));
   }
 
   .section-title {
@@ -1751,6 +1764,27 @@ h1 {
 
   .data-rain-message {
     max-width: 100%;
+    font-size: clamp(1.95rem, 8.2vw, 2.55rem);
+    line-height: 1.04;
+  }
+
+  .data-rain-section .section-copy {
+    max-width: 100%;
+    margin-top: 0;
+    font-size: 0.96rem;
+    line-height: 1.68;
+  }
+
+  .reveal,
+  .reveal.is-visible,
+  .section .reveal,
+  .section .reveal.is-visible,
+  .data-rain-section .matrix-rain-text,
+  .data-rain-section .matrix-rain-text.is-final-text,
+  .data-rain-section.is-decrypted .matrix-rain-text {
+    opacity: 1;
+    filter: none;
+    transform: none;
   }
 
   .terminal,
