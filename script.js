@@ -563,7 +563,11 @@ const initializeMatrixRevealText = (section) => {
     }
 
     const layers = compactMotion.matches
-      ? []
+      ? [
+        // Keep a small, transform-only layer on touch devices so the Matrix panel
+        // remains visibly active without bringing back the expensive desktop stack.
+        { className: "depth-mid", count: 8, alpha: 0.2, speed: 16, depth: 0, blur: 0, fontSize: 0.72, scale: 0.94 },
+      ]
       : [
         { className: "depth-far", count: 8, alpha: 0.14, speed: 27, depth: -120, blur: 0, fontSize: 0.66, scale: 0.86 },
         { className: "depth-mid", count: 8, alpha: 0.23, speed: 20, depth: -20, blur: 0, fontSize: 0.82, scale: 1 },
@@ -574,7 +578,9 @@ const initializeMatrixRevealText = (section) => {
     layers.forEach((layer, layerIndex) => {
       for (let columnIndex = 0; columnIndex < layer.count; columnIndex += 1) {
         const column = document.createElement("span");
-        const glyphCount = 22 + ((columnIndex + layerIndex) % 5) * 4;
+        const glyphCount = compactMotion.matches
+          ? 18 + ((columnIndex + layerIndex) % 4) * 3
+          : 22 + ((columnIndex + layerIndex) % 5) * 4;
         let stream = "";
 
         for (let glyphIndex = 0; glyphIndex < glyphCount; glyphIndex += 1) {

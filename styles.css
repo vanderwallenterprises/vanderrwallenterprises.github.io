@@ -836,7 +836,14 @@ h1 {
 }
 
 .data-rain-section.matrix-lite .matrix-bg-column {
-  display: none;
+  display: block;
+  top: -82%;
+  z-index: 2;
+  font-size: var(--column-font-size);
+  opacity: 0.72;
+  text-shadow: 0 0 7px rgba(98, 216, 255, 0.36);
+  animation-duration: calc(var(--column-speed) * 1.18);
+  will-change: transform;
 }
 
 .matrix-bg-column.depth-far {
@@ -1741,6 +1748,10 @@ h1 {
   .data-rain-section.is-decrypting .data-rain-tunnel,
   .data-rain-section.is-decrypted .data-rain-tunnel {
     opacity: 0.36;
+  }
+
+  .data-rain-section.matrix-lite .data-rain-tunnel {
+    opacity: 0.48;
   }
 
   .matrix-bg-column {
